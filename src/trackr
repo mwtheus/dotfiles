@@ -1,0 +1,33 @@
+#!/bin/bash
+[[ -z $1 ]] && exit
+
+task=$1
+date_started=$(date)
+time_elapsed=0
+
+trap save_stats SIGINT
+save_stats() {
+  date_ended=$(date)
+  printf "\"$date_started\",\"$date_ended\",\"$task\",\"$time_elapsed\"\n" \
+    >> ../out/trackr.txt
+  printf "\rYou focused on \"$task\" for: $time_elapsed"
+  echo ""
+  exit
+}
+
+while true; do
+  ((count++))
+
+  minute=$((count/60))
+  second=$((count - minute*60))
+  hour=$((minute/60))
+  day=$((hour/24))
+
+  time_elapsed="$second'\bs"
+  [[ "$minute" -gt "0" ]] && time_elapsed="$minute'\bm $time_elapsed"
+  [[ "$hour" -gt "0" ]] && time_elapsed="$hour'\b\h $time_elapsed"
+  [[ "$day" -gt "0" ]] && time_elapsed="$day'\bd $time_elapsed"
+
+  printf "\r$task  ====  $time_elapsed"
+  sleep 1
+done
