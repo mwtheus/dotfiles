@@ -1,14 +1,19 @@
 #!/bin/bash
-[[ -z $1 ]] && exit
+man="trackr - track the time
+
+Description: track how much time was spent on a task
+
+Usage: trackr {TASK}"
+
+
+if [[ -z $1 ]] || [[ $1 == -h ]]; then echo "$man"; exit; fi
 
 task=$1
 date_started=$(date)
-time_elapsed=0
 
 trap save_stats SIGINT
 save_stats() {
-  date_ended=$(date)
-  printf "\"$date_started\",\"$date_ended\",\"$task\",\"$time_elapsed\"\n" \
+  printf "\"$date_started\",\"$(date)\",\"$task\",\"$time_elapsed\"\n" \
     >> ../out/trackr.txt
   printf "\rYou focused on \"$task\" for: $time_elapsed"
   echo ""
@@ -16,12 +21,11 @@ save_stats() {
 }
 
 while true; do
-  ((count++))
+  ((second++))
 
-  minute=$((count/60))
-  second=$((count - minute*60))
-  hour=$((minute/60))
-  day=$((hour/24))
+  if [[ $second == 60 ]]; then second=0; ((minute++)); fi
+  if [[ $minute == 60 ]]; then ((hour++)); minute=0; fi
+  if [[ $hour == 24 ]]; then ((day++)); hour=0; fi
 
   time_elapsed="$second'\bs"
   [[ "$minute" -gt "0" ]] && time_elapsed="$minute'\bm $time_elapsed"
