@@ -1,10 +1,11 @@
 #!/bin/bash
 man="trackr - track the time
 
-Description: track how much time was spent on a task
+DESCRIPTION
+        Track how much time was spent on a task.
 
-Usage: trackr {TASK}"
-
+USAGE
+    trackr \"[TASK]\""
 
 if [[ -z $1 ]] || [[ $1 == -h ]]; then echo "$man"; exit; fi
 
@@ -24,12 +25,12 @@ while true; do
   ((second++))
 
   if [[ $second == 60 ]]; then second=0; ((minute++)); fi
-  if [[ $minute == 60 ]]; then ((hour++)); minute=0; fi
-  if [[ $hour == 24 ]]; then ((day++)); hour=0; fi
+  if [[ $minute == 60 ]]; then minute=0; ((hour++)); fi
+  if [[ $hour == 24 ]]; then hour=0; ((day++)); fi
 
   time_elapsed="$second'\bs"
   [[ "$minute" -gt "0" ]] && time_elapsed="$minute'\bm $time_elapsed"
-  [[ "$hour" -gt "0" ]] && time_elapsed="$hour'\b\h $time_elapsed"
+  [[ "$hour" -gt "0" ]] && time_elapsed="$hour'\bh $time_elapsed"
   [[ "$day" -gt "0" ]] && time_elapsed="$day'\bd $time_elapsed"
 
   printf "\r$task  ====  $time_elapsed"
