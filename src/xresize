@@ -2,17 +2,21 @@
 man="xresize - resize a x controlled terminal emulator
 
 DESCRIPTION
-        Resize a terminal window that is controlled by Xresources on the X Window System.
+        Resize a terminal window that is controlled by Xresources on the X 
+        Window System.
 
 USAGE
         xresize [y] [x]
 
 ARGUMENTS
-        x, y
+        y, x
            integers that corresponds to lines and rows, respectively"
 
 re='^[0-9]+$'
-if [[ -z $1 ]] || [[ -z $2 ]] || ! [[ $1 =~ $re ]] || ! [[ $2 =~ $re ]]; then echo "$man"; exit; fi
+if [[ -z $1 ]] || [[ -z $2 ]] || ! [[ $1 =~ $re ]] || ! [[ $2 =~ $re ]]; 
+then 
+  echo "$man"
+  exit
+fi
 
-echo 'oi'
 printf "\033[8;$1;$2t"
