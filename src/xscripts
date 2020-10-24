@@ -1,0 +1,8 @@
+reload_and_preview_x_resources () {
+  xrdb ~/.Xresources
+  $TERM &>/dev/null &
+  sleep 5s
+  kill -9 $! &>/dev/null
+}
+
+if [[ "$1" == "-r" ]]; then reload_and_preview_x_resources; fi
