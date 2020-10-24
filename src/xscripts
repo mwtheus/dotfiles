@@ -1,3 +1,16 @@
+#!/bin/bash
+man="xscipts - scripts for X
+
+DESCRIPTION
+        A set of functions to automate the X environment
+
+USAGE
+        xscripts \"[-r]\"
+
+ARGUMENTS
+        -r, --resize
+          reload X resources, open a terminal and kill it after 5 seconds"
+
 reload_and_preview_x_resources () {
   xrdb ~/.Xresources
   $TERM &>/dev/null &
@@ -5,4 +18,4 @@ reload_and_preview_x_resources () {
   kill -9 $! &>/dev/null
 }
 
-if [[ "$1" == "-r" ]]; then reload_and_preview_x_resources; fi
+[[ "$1" == "-r" || "$1" == "--reload" ]] && reload_and_preview_x_resources
