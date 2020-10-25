@@ -1,5 +1,6 @@
 syntax on
 
+set wrap linebreak nolist
 set nocompatible
 set number showmatch
 set tabstop=2 expandtab autoindent
