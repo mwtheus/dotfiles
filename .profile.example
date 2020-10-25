@@ -1,0 +1,3 @@
+The script setup.sh will export those environment variables: 
+
+PATH="[CURRENT_DIR]/src:$PATH"

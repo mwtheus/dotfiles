@@ -1,9 +1,7 @@
 Dotfiles and automation scripts to run on a Unix machine.
 
 DESCRIPTION
-        When calling 'setup.sh', bash will automate setting up everything in the 
-        system. The dotfiles are based on the usage of a X Window System and a
-        Unix machine.
+        When calling 'setup.sh', bash will automate setting up everything in the system. The dotfiles are based on the usage of a X Window System and a Unix machine.
 
 USAGE
         ./setup.sh
