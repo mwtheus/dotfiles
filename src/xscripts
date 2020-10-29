@@ -1,21 +1,37 @@
 #!/bin/bash
-man="xscipts - scripts for X
+man="xscripts - scripts for X
 
 DESCRIPTION
         A set of functions to automate the X environment
 
-USAGE
-        xscripts \"[-r]\"
-
 ARGUMENTS
-        -r, --resize
-          reload X resources, open a terminal and kill it after 5 seconds"
+        -s, --set
+            set X resources, open a terminal and kill it after 5 seconds
 
-reload_and_preview_x_resources () {
+        -r [y] [x], --resize [y] [x]
+            integers that corresponds to xterm lines and rows, respectively"
+
+set_and_view_x_resources () {
   xrdb ~/.Xresources
   $TERM &>/dev/null &
   sleep 5s
   kill -9 $! &>/dev/null
+  exit
 }
 
-[[ "$1" == "-r" || "$1" == "--reload" ]] && reload_and_preview_x_resources
+resize_xterm () {
+  re='^[0-9]+$'
+  if [[ -z $1 ]] || [[ -z $2 ]] || ! [[ $1 =~ $re ]] || ! [[ $2 =~ $re ]]; 
+  then 
+    echo "$man"
+    exit
+  fi
+  
+  printf "\033[8;$1;$2t"
+  exit
+}
+
+[[ "$1" == "-s" || "$1" == "--set" ]] && set_and_view_x_resources
+[[ "$1" == "-r" || "$1" == "--resize" ]] && resize_xterm $2 $3
+
+echo "$man"
