@@ -5,8 +5,11 @@ DESCRIPTION
         A set of functions to automate the X environment
 
 ARGUMENTS
-        -s, --set
+        -v, --visual
             set X resources, open a terminal and kill it after 5 seconds
+
+        -k, --keyboard
+            set Xorg keyboard layout
 
         -r [y] [x], --resize [y] [x]
             integers that corresponds to xterm lines and rows, respectively"
@@ -19,7 +22,12 @@ set_and_view_x_resources () {
   exit
 }
 
-resize_xterm () {
+set_keyboard_layout () {
+  setxkbmap $1
+  exit
+}
+
+resize_terminal () {
   re='^[0-9]+$'
   if [[ -z $1 ]] || [[ -z $2 ]] || ! [[ $1 =~ $re ]] || ! [[ $2 =~ $re ]]; 
   then 
@@ -31,7 +39,9 @@ resize_xterm () {
   exit
 }
 
-[[ "$1" == "-s" || "$1" == "--set" ]] && set_and_view_x_resources
-[[ "$1" == "-r" || "$1" == "--resize" ]] && resize_xterm $2 $3
+
+[[ "$1" == "-v" || "$1" == "--visual" ]] && set_and_view_x_resources
+[[ "$1" == "-k" || "$1" == "--keyboard" ]] && set_keyboard_layout $2
+[[ "$1" == "-r" || "$1" == "--resize" ]] && resize_terminal $2 $3
 
 echo "$man"

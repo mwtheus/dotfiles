@@ -13,6 +13,6 @@ set ignorecase
 hi ColorColumns ctermbg=232
 
 :autocmd BufReadPre * :silent !command xscripts --resize 80 84
-:autocmd BufWritePost ~/.Xresources :silent !command xscripts --set
+:autocmd BufWritePost ~/.Xresources :silent !command xscripts --visual
 
 map <C-n> :NERDTreeToggle<CR>
