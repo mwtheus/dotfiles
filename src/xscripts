@@ -5,13 +5,13 @@ DESCRIPTION
         A set of functions to automate the X environment
 
 ARGUMENTS
-        -v, --visual
+        -v, visual
             set X resources, open a terminal and kill it after 5 seconds
 
-        -k, --keyboard
+        -k [layout], keyboard [layout]
             set Xorg keyboard layout
 
-        -r [y] [x], --resize [y] [x]
+        -r [y] [x], resize [y] [x]
             integers that corresponds to xterm lines and rows, respectively"
 
 set_and_view_x_resources () {
@@ -40,8 +40,8 @@ resize_terminal () {
 }
 
 
-[[ "$1" == "-v" || "$1" == "--visual" ]] && set_and_view_x_resources
-[[ "$1" == "-k" || "$1" == "--keyboard" ]] && set_keyboard_layout $2
-[[ "$1" == "-r" || "$1" == "--resize" ]] && resize_terminal $2 $3
+[[ "$1" == "-v" || "$1" == "visual" ]] && set_and_view_x_resources
+[[ "$1" == "-k" || "$1" == "keyboard" ]] && set_keyboard_layout $2
+[[ "$1" == "-r" || "$1" == "resize" ]] && resize_terminal $2 $3
 
 echo "$man"
