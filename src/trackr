@@ -2,37 +2,75 @@
 man="trackr - track the time
 
 DESCRIPTION
-        Track how much time was spent on a task.
+        Track how much time was spent on a task. If time is specified, the text
+        becomes yellow when 85% of the specified time are past, and red when
+        time spent is >= 100% of the specified time. It will not close the 
+        task, it will just raise a color warning.
 
-USAGE
-        trackr \"[TASK]\""
+ARGUMENTS
+        -b \"[TASK]\" [TIME], begin \"[TASK]\" [TIME]
+            Start tracking using the arguments below
 
-if [[ -z $1 ]] || [[ $1 == -h ]]; then echo "$man"; exit; fi
+        \"[TASK]\"
+            Required.
+            It must contain the description of the task that
+            are being done. Optionally, you may add the argument below, after
+            giving the description
 
-task=$1
-date_started=$(date)
+        [TIME]
+            Optional. 
+            Refers to how much time the users wants to spend on a task. This
+            must be a string with the syntax below. The parametes must be 
+            separated with white space
 
-trap save_stats SIGINT
-save_stats() {
-  printf "\"$date_started\",\"$(date)\",\"$task\",\"$time_elapsed\"\n" \
-    >> ../out/trackr.txt
-  printf "\rYou focused on \"$task\" for: $time_elapsed"
-  echo ""
-  exit
+            [INT]s: seconds
+            [INT]m: minutes
+            [INT]h: hours
+
+EXAMPLE
+        $ trackr -b \"Work on trackr\" \"2h 30m 10s\"
+
+        Here, we have given 2 hours, 30 minutes and 10 seconds for the task 
+        \"Work on trackr\""
+
+track () {
+  task=$1
+  time_destined=$([[ ! -z $2 ]] && echo "$2" || echo @)
+
+  date_started=$(date)
+  
+  default="\033[0m"
+  green_fg="\033[38;2;0;255;0m"
+  yellow_fg="\033[38;2;255;255;0m"
+  red_fg="\033[38;2;255;0;0m"
+  blue_fg="\033[38;2;0;0;255m"
+  
+  trap save_stats SIGINT
+  save_stats() {
+    printf "\"$date_started\",\"$(date)\",\"$task\",\"$time_elapsed\"\n" \
+      >> ../out/trackr.txt
+    printf "\rYou focused on \"$task\" for: $time_elapsed"
+    echo ""
+    exit
+  }
+  
+  while true; do
+    ((second++))
+  
+    if [[ $second == 60 ]]; then second=0; ((minute++)); fi
+    if [[ $minute == 60 ]]; then minute=0; ((hour++)); fi
+    if [[ $hour == 24 ]]; then hour=0; ((day++)); fi
+  
+    time_elapsed="$second'\bs"
+    [[ "$minute" -gt "0" ]] && time_elapsed="$minute'\bm $time_elapsed"
+    [[ "$hour" -gt "0" ]] && time_elapsed="$hour'\bh $time_elapsed"
+    [[ "$day" -gt "0" ]] && time_elapsed="$day'\bd $time_elapsed"
+  
+    printf "\r$task ($time_destined)  ====  $time_elapsed"
+    sleep 1
+  done
 }
 
-while true; do
-  ((second++))
+[[ "$1" == "-b" || "$1" == "begin" ]] && track "$2" "$3"
 
-  if [[ $second == 60 ]]; then second=0; ((minute++)); fi
-  if [[ $minute == 60 ]]; then minute=0; ((hour++)); fi
-  if [[ $hour == 24 ]]; then hour=0; ((day++)); fi
-
-  time_elapsed="$second'\bs"
-  [[ "$minute" -gt "0" ]] && time_elapsed="$minute'\bm $time_elapsed"
-  [[ "$hour" -gt "0" ]] && time_elapsed="$hour'\bh $time_elapsed"
-  [[ "$day" -gt "0" ]] && time_elapsed="$day'\bd $time_elapsed"
-
-  printf "\r$task  ====  $time_elapsed"
-  sleep 1
-done
+echo "$man"
