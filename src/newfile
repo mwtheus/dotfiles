@@ -1,0 +1,30 @@
+#!/bin/bash
+man="newfile - create new file
+
+DESCRIPTION
+        Create new sample files for different languages/frameworks.
+
+ARGUMENTS
+        react [COMPONENT NAME]
+            creates a new React file with the given component name in the 
+            current directory"
+
+react_file="import React from 'react';
+
+const $2 = () => {
+  return (<div>
+    Enter JSX here...
+  </div>)
+};
+
+export default $2;"
+
+react () {
+  component_name=$1
+  echo "$react_file" >> $component_name.js
+  exit
+}
+
+[[ "$1" == "react" ]] && react $2
+
+echo "$man"
