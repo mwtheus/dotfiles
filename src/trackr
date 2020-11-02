@@ -48,7 +48,7 @@ track () {
   trap save_stats SIGINT
   save_stats() {
     printf "\"$date_started\",\"$(date)\",\"$task\",\"$time_elapsed\"\n" \
-      >> ../out/trackr.txt
+      >> $HOME/assets/data/trackr.csv
     printf "\rYou focused on \"$task\" for: $time_elapsed"
     echo ""
     exit
