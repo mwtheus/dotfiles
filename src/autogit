@@ -1,0 +1,5 @@
+#!/bin/bash
+
+branch=$(git branch 2>/dev/null | grep '*' | cut -d ' ' -f 2)
+
+echo "$branch"

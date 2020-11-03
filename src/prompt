@@ -1,0 +1,3 @@
+#!/bin/bash 
+
+[[ ! -z "$(autogit)" ]] && echo $(autogit) || echo "#"
