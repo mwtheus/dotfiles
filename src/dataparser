@@ -1,0 +1,25 @@
+#!/bin/bash
+man="dataparser - parse data from input
+
+DESCRIPTION
+        Read one given file and parses the data in it
+
+ARGUMENTS
+        -b [PATH_TO_FILE], bookmark [PATH_TO_FILE]
+            Choose and print, randomly, one line (bookmark) from a CSV file, 
+            e.g bookmarks.csv"
+
+choose_bookmark () {
+  file=$1
+  number_of_bookmarks=$(wc -l $file | awk '{ print $1}')
+  chosen=$((2 + RANDOM % number_of_bookmarks)) # number 1 is the header
+
+  echo $chosen
+  awk "NR==$chosen" $file | cut -d ',' -f 1
+  awk "NR==$chosen" $file | cut -d ',' -f 2
+  exit
+}
+
+[[ "$1" == "-b" || "$1" == "bookmark" ]] && choose_bookmark $2
+
+echo "$man"
