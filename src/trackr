@@ -11,13 +11,13 @@ ARGUMENTS
         -b \"[TASK]\" [TIME], begin \"[TASK]\" [TIME]
             Start tracking using the arguments below
 
-        \"[TASK]\"
+            \"[TASK]\"
             Required.
             It must contain the description of the task that
             are being done. Optionally, you may add the argument below, after
             giving the description
 
-        [TIME]
+            [TIME]
             Optional. 
             Refers to how much time the users wants to spend on a task. This
             must be a string with the syntax below. The parametes must be 
