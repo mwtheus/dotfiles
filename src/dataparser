@@ -7,7 +7,10 @@ DESCRIPTION
 ARGUMENTS
         -b [PATH_TO_FILE], bookmark [PATH_TO_FILE]
             Choose and print, randomly, one line (bookmark) from a CSV file, 
-            e.g bookmarks.csv"
+            e.g bookmarks.csv
+
+        -d [FILE], display [FILE]
+            Resize the window and \`cat\` the data file"
 
 choose_bookmark () {
   file=$1
@@ -20,6 +23,19 @@ choose_bookmark () {
   exit
 }
 
+display_data () {
+  file=$1
+  case "$file" in
+    habits)
+      clear
+      xscripts resize 19 25
+      cat $HOME/assets/data/habits.csv
+      ;;
+  esac
+  exit
+}
+
 [[ "$1" == "-b" || "$1" == "bookmark" ]] && choose_bookmark $2
+[[ "$1" == "-d" || "$1" == "display" ]] && display_data $2
 
 echo "$man"
