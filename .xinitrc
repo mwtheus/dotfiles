@@ -1,3 +1,5 @@
-# It should have /src in PATH
-[[ -f ~/.Xresources ]] && xscripts visual
+#!/bin/bash
+
+[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
+[[ -f ~/.xprofile ]] && . ~/.xprofile
 exec i3
