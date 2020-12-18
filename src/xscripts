@@ -12,7 +12,10 @@ ARGUMENTS
             set Xorg keyboard layout
 
         -r [y] [x], resize [y] [x]
-            integers that corresponds to xterm lines and rows, respectively"
+            integers that corresponds to xterm lines and rows, respectively
+
+        -m [direction], monitor [direction]
+            strings \"vertical\" or \"horizontal\""
 
 set_and_view_x_resources () {
   xrdb ~/.Xresources
@@ -29,8 +32,7 @@ set_keyboard_layout () {
 
 resize_terminal () {
   re='^[0-9]+$'
-  if [[ -z $1 ]] || [[ -z $2 ]] || ! [[ $1 =~ $re ]] || ! [[ $2 =~ $re ]]; 
-  then 
+  if [[ -z $1 ]] || [[ -z $2 ]] || ! [[ $1 =~ $re ]] || ! [[ $2 =~ $re ]]; then 
     echo "$man"
     exit
   fi
@@ -39,9 +41,19 @@ resize_terminal () {
   exit
 }
 
+change_monitor_direction () {
+  if [[ "$1" == "horizontal" ]]; then
+    xrandr --output HDMI1 --rotate normal --right-of eDP1 
+  elif [[ "$1" == "vertical" ]]; then
+    xrandr --output HDMI1 --rotate left --right-of eDP1
+  fi
+
+  exit
+}
 
 [[ "$1" == "-v" || "$1" == "visual" ]] && set_and_view_x_resources
 [[ "$1" == "-k" || "$1" == "keyboard" ]] && set_keyboard_layout $2
 [[ "$1" == "-r" || "$1" == "resize" ]] && resize_terminal $2 $3
+[[ "$1" == "-m" || "$1" == "monitor" ]] && change_monitor_direction $2
 
 echo "$man"
