@@ -13,10 +13,9 @@ git_current_branch () {
 
 PS1='\033[1;32m\u \033[1;34m\W \033[1;33m$(git_current_branch) \033[0m\$ '
 
-alias ls='ls --color=auto --group-directories-first'
+alias ls='ls --group-directories-first --color=auto'
 alias lsa='ls -al'
 alias diff='diff --color=auto'
-alias grep='grep -n --color=auto'
-alias feh='feh --image-bg black --scale-down'
-alias dh='dataparser display habits'
+alias grep='grep --line-number --color=auto'
+alias feh='feh --scale-down --image-bg black'
 alias xterm='xterm -b 8'
