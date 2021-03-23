@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [[ -z "$1" ]]; then exit; fi
+
+if [[ "$1" == "--list" || "$1" == "-l" ]];
+then
+  aliases=$(cat ../etc/sshs | cut -d ',' -f1)
+  echo ${aliases[@]}
+  exit
+fi
+
+alias=$1
+user=$(cat ../etc/sshs | grep $alias | cut -d ',' -f2)
+address=$(cat ../etc/sshs | grep $alias | cut -d ',' -f3)
+password=$(cat ../etc/sshs | grep $alias | cut -d ',' -f4)
+
+echo $password | xclip -i
+ssh $user@$address
