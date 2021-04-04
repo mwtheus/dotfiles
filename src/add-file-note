@@ -1,0 +1,9 @@
+#!/bin/bash
+
+man="Usage: add-note [FILE RELATIVE PATH] [NOTE]"
+
+relative_path=$1 # substitute . with $PWD
+path=$(echo $relative_path | sed "s/./$(pwd | sed 's/\//\\\//g')/")
+note=$2
+
+echo "$path,\"$note\"" >> $HOME/data/file-notes.csv
