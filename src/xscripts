@@ -14,14 +14,17 @@ ARGUMENTS
         -r [y] [x], resize [y] [x]
             integers that corresponds to xterm lines and rows, respectively
 
-        -m [direction], monitor [direction]
-            strings \"vertical\" or \"horizontal\""
+        -m [direction], monitor [view]
+            strings \"extend\", \"vertical\", \"horizontal\" or \"main-off\"
+
+        mouse [action]
+            \"move_up\", \"move_right\", \"move_down\", \"move_left\", 
+            \"click_left\", \"click_middle\", \"click_right\", \"scroll_up\" and 
+            \"scroll_down\""
 
 set_and_view_x_resources () {
   xrdb ~/.Xresources
-  $TERM &>/dev/null &
-  sleep 5s
-  kill -9 $! &>/dev/null
+  $TERM &>/dev/null
   exit
 }
 
@@ -32,7 +35,8 @@ set_keyboard_layout () {
 
 resize_terminal () {
   re='^[0-9]+$'
-  if [[ -z $1 ]] || [[ -z $2 ]] || ! [[ $1 =~ $re ]] || ! [[ $2 =~ $re ]]; then 
+  if [[ -z $1 ]] || [[ -z $2 ]] || ! [[ $1 =~ $re ]] || ! [[ $2 =~ $re ]]; 
+  then 
     echo "$man"
     exit
   fi
@@ -41,19 +45,46 @@ resize_terminal () {
   exit
 }
 
-change_monitor_direction () {
-  if [[ "$1" == "horizontal" ]]; then
+change_monitor_view () {
+  if [[ "$1" == "extend" ]]; then
+    xrandr --output HDMI1 --auto --right-of eDP1 
+  elif [[ "$1" == "horizontal" ]]; then
     xrandr --output HDMI1 --rotate normal --right-of eDP1 
   elif [[ "$1" == "vertical" ]]; then
     xrandr --output HDMI1 --rotate left --right-of eDP1
+  elif [[ "$1" == "main-off" ]]; then
+    xrandr --output eDP1 --off
   fi
 
   exit
 }
 
+move_mouse () {
+  if [[ "$1" == "move_up" ]]; then
+    xdotool mousemove_relative -- 0 -30
+  elif [[ "$1" == "move_right" ]]; then
+    xdotool mousemove_relative 30 0
+  elif [[ "$1" == "move_down" ]]; then
+    xdotool mousemove_relative 0 30
+  elif [[ "$1" == "move_left" ]]; then
+    xdotool mousemove_relative -- -30 0
+  elif [[ "$1" == "click_left" ]]; then
+    xdotool click 1
+  elif [[ "$1" == "click_middle" ]]; then
+    xdotool click 2
+  elif [[ "$1" == "click_right" ]]; then
+    xdotool click 3
+  elif [[ "$1" == "scroll_up" ]]; then
+    xdotool click 4
+  elif [[ "$1" == "scroll_down" ]]; then
+    xdotool click 5
+  fi
+}
+
 [[ "$1" == "-v" || "$1" == "visual" ]] && set_and_view_x_resources
 [[ "$1" == "-k" || "$1" == "keyboard" ]] && set_keyboard_layout $2
 [[ "$1" == "-r" || "$1" == "resize" ]] && resize_terminal $2 $3
-[[ "$1" == "-m" || "$1" == "monitor" ]] && change_monitor_direction $2
+[[ "$1" == "-m" || "$1" == "monitor" ]] && change_monitor_view $2
+[[ "$1" == "mouse" ]] && move_mouse $2
 
 echo "$man"
