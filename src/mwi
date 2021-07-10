@@ -1,0 +1,62 @@
+#!/bin/bash
+#json='{'
+root_folder="$HOME/mwtheus.github.io"
+index_file='<ul>'
+
+echo_items() {
+  dir=$1
+  dir_name=$2
+
+  for item in $dir/*; do
+    if [[ -d $item ]]; then 
+      dir_name="$(echo $item | rev | cut -d '/' -f1 | rev)"
+
+      if [[ ! -d "$root_folder/$dir_name" ]]; then
+        mkdir "$root_folder/$dir_name" # CANT HANDLE NESTED
+      fi
+
+      echo_items $item $dir_name
+    else
+      ext="$(echo "$item" | cut -d '.' -f2)"
+
+      if [[ "$ext" == "md" || "$ext" == "txt" ]]; then
+        name="$(echo "${item##*/}" | cut -d '.' -f1)"
+
+        value="
+        <html>
+
+        <head>
+          <title>mwtheus < $name</title>
+          <meta charset=\"UTF-8\">
+          <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">
+          <meta name=\"viewport\" 
+            content=\"width=device-width, initial-scale=1.0\">
+          <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">
+          <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>
+          <link rel=\"stylesheet\"
+            href=\"https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@300&display=swap\">
+          <link rel=\"stylesheet\" href=\"../styles.css\" />
+        </head>
+
+        <body>
+          $(pandoc $item)
+        </body>
+
+        </html>"
+
+        echo "$value" > "$root_folder/$dir_name/$name.html"
+        index_file+="
+        <li>
+          <a href=\"$root_folder/$dir_name/$name.html\">
+            $root_folder/$dir_name/$name.html
+          </a>
+        </li>"
+      else
+        continue ## NEEDS TO BE PARSED LINE BY LINE
+      fi
+    fi
+  done
+}
+
+echo_items "$HOME/data" ''
+echo "$index_file</ul>" > "$root_folder/index.html"
