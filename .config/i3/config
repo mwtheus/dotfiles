@@ -150,19 +150,9 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
-
-
-
-
-
-
-
-
-
-
-
-bindsym $mod+Return exec xterm -b 8 -hold -e "xscripts resize 25 84 && bash"
+bindsym $mod+Return exec xterm -b 14 -hold
 for_window [class="XTerm"] floating enable
+for_window [class="client"] floating enable
 
 bindsym $mod+r mode "resize"
 mode "resize" {
@@ -181,14 +171,17 @@ mode "resize" {
   bindsym $mod+r mode "default"
 }
 
-default_border pixel 5
-default_floating_border pixel 5
-
-gaps inner 8
-gaps outer 2
+default_border pixel 0
+default_floating_border pixel 0
 
 bar { 
   status_command i3status 
+
+  colors {
+    background #2a2a2e
+    statusline #ffffff
+    focused_workspace  #ffffff #3e3c2f
+  }
 }
 
 # class                 border  backgr. text    indicator child_border

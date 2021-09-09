@@ -1,3 +1,4 @@
 #!/bin/bash
 
+xsetroot -solid '#262626'
 [[ -f ~/.fehbg ]] && . ~/.fehbg

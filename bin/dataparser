@@ -10,7 +10,10 @@ ARGUMENTS
             e.g bookmarks.csv
 
         -d [FILE], display [FILE]
-            Resize the window and \`cat\` the data file"
+            Resize the window and \`cat\` the data file
+
+        -h, habits
+            Display the habits and if they were accomplished or not"
 
 choose_bookmark () {
   file=$1
@@ -29,7 +32,7 @@ display_data () {
     habits)
       clear
       xscripts resize 19 25
-      cat $HOME/assets/data/habits.csv
+      cat $HOME/data/habits
       ;;
   esac
   exit
