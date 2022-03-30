@@ -1,0 +1,40 @@
+#!/bin/bash
+
+URL='https://www.spacetelescope.org/images/heic0105a/'
+
+get_data() {
+  curl -s "$URL" | grep "$1" | sed -E 's/<a*\/a>/oi/g' | sed -E 's/<[^<>]*>//g' | sed 's/^ *//'
+}
+
+#printf "Getting title...\n"
+#curl -s "$URL" | grep '<h1>' | sed -E 's/<[^<>]*>//g'
+
+printf "\nGetting article...\n"
+curl -s "$URL" | grep '<p>' | sed -e 's/<a.*a>/oi/'
+#curl -s "$URL" | grep '<p>'
+# | sed -E 's/<[^<>]*>//g' | sed 's/^ *//'
+
+
+
+#printf "\nGetting article...\n"
+#curl -s https://www.spacetelescope.org/images/heic0105a/ | grep '<p>'
+#get_data '<p>'
+#
+#
+#
+#printf "\nGetting info...\n"
+#get_data 'object-info'
+#
+#printf "\nGetting images...\n"
+#get_data 'archive_download'
+#
+#
+#
+#
+#
+#printf "\nGetting info...\n"
+#curl -s https://www.spacetelescope.org/images/heic0105a/ | grep 'object-info'
+#printf "\nGetting images...\n"
+#curl -s https://www.spacetelescope.org/images/heic0105a/ | grep 'object-info'
+
+#https://www.spacetelescope.org/images/heic1608a/
