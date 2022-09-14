@@ -1,13 +1,41 @@
-syntax on
+" Remove ^M from files:
+" :%s/\r//g
 
-set wrap linebreak nolist
+silent e ++ff=unix
+"silent %s /\r//g
+
+syntax on
+filetype on
+
 set nocompatible
-set number showmatch
-set tabstop=2 expandtab autoindent
+set number
+
+"set cursorline
+"highlight CursorLine ctermbg=green guibg=green
+
+set cursorcolumn
+highlight CursorColumn ctermbg=green guibg=green
+
+set shiftwidth=2 tabstop=2 expandtab autoindent
+set ignorecase showmatch hlsearch incsearch
+set wrap linebreak
+
 set colorcolumn=80 textwidth=80
+highlight ColorColumn ctermbg=darkred guibg=darkred
+
+set list listchars=tab:>-,trail:·,extends:>
+highlight ExtraWhitespace ctermbg=darkred guibg=darkred
+match ExtraWhitespace /\s\+$/
+
+highlight RedundantSpaces ctermbg=darkred guibg=darkred
+match RedundantSpaces /\s\+$/
+
+set wildmenu
+set wildmode=list:longest
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+
 set mouse=a
 set backspace=indent,eol,start
 set matchpairs+=<:>
-set ignorecase
 
-hi ColorColumns ctermbg=232
+set showmode showcmd history=1000

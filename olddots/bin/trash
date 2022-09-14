@@ -1,4 +1,0 @@
-#!/bin/bash
-# Move files to a $HOME/.trash, and should remove them after some time
-path="$1"
-mv "$path" $HOME/.trash
