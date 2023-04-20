@@ -1,3 +1,2 @@
 PATH="$HOME/main/bin:$PATH"
-PATH="$HOME/main/clients:$PATH"
-PATH="$HOME/main/services:$PATH"
+PATH="$HOME/main/scripts:$PATH"

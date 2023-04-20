@@ -1,6 +1,7 @@
 " Remove ^M from files:
 " :%s/\r//g
 
+autocmd BufNewFile,BufRead *.ya set filetype=javascript
 silent e ++ff=unix
 "silent %s /\r//g
 
