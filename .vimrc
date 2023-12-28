@@ -40,3 +40,4 @@ set backspace=indent,eol,start
 set matchpairs+=<:>
 
 set showmode showcmd history=1000
+set laststatus=2

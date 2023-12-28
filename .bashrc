@@ -11,11 +11,11 @@ alias lsa='ls -a'
 alias lsal='lsa -l'
 alias diff='diff --color=auto'
 alias grep='grep -n --color=auto'
-
-alias cli="node $HOME/source/cli/index.js"
-alias api="node $HOME/source/apis/index.js"
-alias web="live-server $HOME/source/web"
 alias cl="clear; cd"
+
+alias sumdow="cd $HOME/main/apps/sumdow"
+alias yapli="cd $HOME/main/apps/yapli"
+alias yalib="cd $HOME/main/common/ya/lib"
 
 ## nvm config
 export NVM_DIR="$HOME/.nvm"
