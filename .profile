@@ -26,5 +26,4 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-PATH="$HOME/main/bin:$PATH"
-PATH="$HOME/main/apps:$PATH"
+PATH="$HOME/yappli/bin:$PATH"

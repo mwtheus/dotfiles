@@ -21,7 +21,7 @@ set shiftwidth=2 tabstop=2 expandtab autoindent
 set ignorecase showmatch hlsearch incsearch
 set wrap linebreak
 
-set colorcolumn=80 textwidth=80
+set colorcolumn=80 "textwidth=80
 highlight ColorColumn ctermbg=darkred guibg=darkred
 
 set list listchars=tab:>-,trail:·,extends:>

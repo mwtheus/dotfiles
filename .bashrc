@@ -13,9 +13,9 @@ alias diff='diff --color=auto'
 alias grep='grep -n --color=auto'
 alias cl="clear; cd"
 
-alias sumdow="cd $HOME/main/apps/sumdow"
-alias yapli="cd $HOME/main/apps/yapli"
-alias yalib="cd $HOME/main/common/ya/lib"
+alias yappli="node $HOME/yappli/yappli.js"
+alias yalib="cd $HOME/yappli/lib"
+alias yasrc="cd $HOME/yappli/src"
 
 ## nvm config
 export NVM_DIR="$HOME/.nvm"
