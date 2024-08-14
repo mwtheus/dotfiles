@@ -12,10 +12,7 @@ alias lsal='lsa -l'
 alias diff='diff --color=auto'
 alias grep='grep -n --color=auto'
 alias cl="clear; cd"
-
-alias yappli="node $HOME/yappli/yappli.js"
-alias yalib="cd $HOME/yappli/lib"
-alias yasrc="cd $HOME/yappli/src"
+alias c="clear"
 
 ## nvm config
 export NVM_DIR="$HOME/.nvm"
