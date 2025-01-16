@@ -14,6 +14,8 @@ alias grep='grep -n --color=auto'
 alias cl="clear; cd"
 alias c="clear"
 
+kssh () { ssh -o ServerAliveInterval=60 $1; }
+
 ## nvm config
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
