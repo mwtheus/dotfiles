@@ -13,6 +13,7 @@ alias diff='diff --color=auto'
 alias grep='grep -n --color=auto'
 alias cl="clear; cd"
 alias c="clear"
+alias yr="node /home/mwtheus/yr/yr.js"
 
 kssh () { ssh -o ServerAliveInterval=60 $1; }
 
