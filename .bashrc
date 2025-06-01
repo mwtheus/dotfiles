@@ -4,6 +4,8 @@ parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/'
 }
 
+kssh () { ssh -o ServerAliveInterval=60 $1; }
+
 export PS1="\[\033[32m\]\u \[\033[34m\]\W\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
 
 alias ls='ls --color=auto --group-directories-first'
@@ -13,9 +15,8 @@ alias diff='diff --color=auto'
 alias grep='grep -n --color=auto'
 alias cl="clear; cd"
 alias c="clear"
-alias yr="node /home/mwtheus/yr/yr.js"
-
-kssh () { ssh -o ServerAliveInterval=60 $1; }
+alias yr="node ~/yr/yr.js"
+alias sf='kssh _75apps@144.91.91.173'
 
 ## nvm config
 export NVM_DIR="$HOME/.nvm"
