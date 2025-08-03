@@ -16,8 +16,9 @@ alias grep='grep -n --color=auto'
 alias cl="clear; cd"
 alias c="clear"
 alias yr='node ~/yr/yr.js'
-alias sf='kssh _75apps@144.91.91.173'
 alias yrdev='node ~/yr/yr.js name=yrdev config=~/yr tree=~/yrlibs views=yrwm:index builds=~/.yrb --exec'
+alias cy='c; yrdev'
+alias sf='kssh _75apps@144.91.91.173'
 
 ## nvm config
 export NVM_DIR="$HOME/.nvm"
