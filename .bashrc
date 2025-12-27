@@ -5,6 +5,7 @@ parse_git_branch() {
 }
 
 kssh () { ssh -o ServerAliveInterval=60 $1; }
+gf () { grep -rnw . -e "$1"; }
 
 export PS1="\[\033[32m\]\u \[\033[34m\]\W\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
 
