@@ -1,4 +1,5 @@
-# dotfiles
+dotfiles
+========
 
 Configuration files for terminal. Use bash and have vim installed
 
