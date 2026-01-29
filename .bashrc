@@ -16,3 +16,9 @@ alias diff='diff --color=auto'
 alias grep='grep -n --color=auto'
 alias cl="clear; cd"
 alias c="clear"
+
+alias yr="node /home/yrkit/.yr/yr-cli/main.js"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
